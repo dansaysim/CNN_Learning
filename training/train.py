@@ -6,6 +6,7 @@ import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import time
 from config import config
 import sys
 
@@ -40,6 +41,9 @@ history = {
     'test_loss': [],
     'test_accuracy': []
 }
+
+# Initialize training time tracking
+total_start_time = time.time()
 
 #Training loop
 
@@ -84,8 +88,6 @@ for epoch in range(config.epochs):
     val_loss = val_loss / len(val_loader)
     val_accuracy = 100 * val_correct / val_total
 
-    print(f"Epoch {epoch+1}/{config.epochs}, Train Loss: {train_loss:.4f}, Train Accuracy: {train_accuracy:.2f}%, Val Loss: {val_loss:.4f}, Val Accuracy: {val_accuracy:.2f}%")
-    
     #Test loop
 
     model.eval()
@@ -105,6 +107,12 @@ for epoch in range(config.epochs):
     test_loss = test_loss / len(test_loader)
     test_accuracy = 100 * test_correct / test_total
 
+    # Calculate total elapsed time
+    
+    total_time = int(time.time() - total_start_time)
+    
+    print(f"Epoch {epoch+1}/{config.epochs}: {total_time} seconds")
+    print(f"Train Loss: {train_loss:.4f}, Train Accuracy: {train_accuracy:.2f}%, Val Loss: {val_loss:.4f}, Val Accuracy: {val_accuracy:.2f}%")
     print(f"Test Loss: {test_loss:.4f}, Test Accuracy: {test_accuracy:.2f}%")
 
     #Save training history
@@ -121,6 +129,10 @@ for epoch in range(config.epochs):
 if not os.path.exists("model_outputs"):
     os.makedirs("model_outputs")
 torch.save(model.state_dict(), "model_outputs/model_v1_final.pth")
+
+# Calculate and print total training time
+total_training_time = int(time.time() - total_start_time)
+print(f"Total Training Time: {total_training_time} seconds")
 
 # Plot final training history
 plt.figure(figsize=(12, 5))

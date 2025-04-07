@@ -16,7 +16,7 @@
 Conv->ReLu->MaxPool (2x) -> FC
 
 #### Results:
-(On Laptop, forgot to add training time calc, do again with time and compare)
+Only adding epoch time in Test 3
 
 ###### Laptop: CNN v1 - Test 1
 
@@ -58,7 +58,27 @@ Test Loss: 0.9160, Test Accuracy: 69.32%
 
 Thoughts: Model began to overfit around epoch ~20, very jagged validation loss
 
+###### Laptop: CNN v1 - Test 3
 
+Epochs: 50
+Batch_Size: 512
+Learning_Rate: 1e-3
+Classes = 10
+Training/Validation Data Split: 90/10
+
+Final Epoch:
+
+Epoch 50/50: 396 seconds
+Train Loss: 0.6561, Train Accuracy: 77.67%, Val Loss: 0.9060, Val Accuracy: 69.30%
+Test Loss: 0.9226, Test Accuracy: 69.02%
+
+Best Accuracy:
+
+Epoch 48/50: 380 seconds
+Train Loss: 0.6604, Train Accuracy: 77.45%, Val Loss: 0.8925, Val Accuracy: 68.90%
+Test Loss: 0.9101, Test Accuracy: 69.44%
+
+Thoughts: Model began to overfit around epoch ~20, slightly under 10 seconds per epoch. This is enough random tests that I will now swap to CNN v2 and begin to add dropout layers gradually.
 
 
 ## Training the Model
