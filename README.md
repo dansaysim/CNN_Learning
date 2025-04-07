@@ -1,6 +1,6 @@
-##### CNN
+# CNN
 
-#### Models
+## Models
 
 ### CNN_v1 
 
@@ -15,10 +15,10 @@
 
 Conv->ReLu->MaxPool (2x) -> FC
 
-## Results:
+#### Results:
 (On Laptop, forgot to add training time calc, do again with time and compare)
 
-# Laptop: CNN v1 - Test 1
+###### Laptop: CNN v1 - Test 1
 
 Epochs: 50
 Batch_Size: 512
@@ -38,7 +38,7 @@ Test Loss: 0.8968, Test Accuracy: 69.53%
 
 Thoughts: Model began to overfit around epoch ~25, worsening as time went on
 
-# Laptop: CNN v1 - Test 2
+###### Laptop: CNN v1 - Test 2
 
 Epochs: 50
 Batch_Size: 512
@@ -61,7 +61,7 @@ Thoughts: Model began to overfit around epoch ~20, very jagged validation loss
 
 
 
-#### Training the Model
+## Training the Model
 
 1. Install the required dependencies:
 ```
