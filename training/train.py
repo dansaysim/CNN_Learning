@@ -20,6 +20,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 if device.type == "cuda":
     print("Training on GPU")
+    print(f"GPU Name: {torch.cuda.get_device_name(0)}")
 else:
     print("Training on CPU")
 
