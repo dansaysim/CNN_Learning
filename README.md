@@ -5,26 +5,28 @@
 ### CNN_v1 
 
 2 Convolution Layers
-    - 3,16,3,1
-    - 16,64,3,1
+- 3,16,3,1
+- 16,64,3,1
+
 2 ReLu Activations
+
 2 MaxPool Layers
-    - 2,2
+- 2,2
+
 1 FC Layer
-    - 4096,10
+- 4096,10
 
 {Conv->ReLu->MaxPool}(2x)->Flatten->FC
 
 #### Results:
-Only adding epoch time in Test 3
 
 ###### Laptop: CNN v1 - Test 1
 
-Epochs: 50
-Batch_Size: 512
-Learning_Rate: 1e-3
-Classes = 10
-Training/Validation Data Split: 90/10
+Epochs: 50 |
+Batch_Size: 512 |
+Learning_Rate: 1e-3 |
+Classes = 10 |
+Training/Validation Data Split: 90/10 
 
 Final Epoch:
 
@@ -40,10 +42,10 @@ Thoughts: Model began to overfit around epoch ~25, worsening as time went on
 
 ###### Laptop: CNN v1 - Test 2
 
-Epochs: 50
-Batch_Size: 512
-Learning_Rate: 1e-3
-Classes = 10
+Epochs: 50 |
+Batch_Size: 512 |
+Learning_Rate: 1e-3 |
+Classes = 10 |
 Training/Validation Data Split: 80/20
 
 Final Epoch:
@@ -60,10 +62,10 @@ Thoughts: Model began to overfit around epoch ~20, very jagged validation loss
 
 ###### Laptop: CNN v1 - Test 3
 
-Epochs: 50
-Batch_Size: 512
-Learning_Rate: 1e-3
-Classes = 10
+Epochs: 50 |
+Batch_Size: 512 |
+Learning_Rate: 1e-3 |
+Classes = 10 |
 Training/Validation Data Split: 90/10
 
 Final Epoch:
@@ -83,16 +85,20 @@ Thoughts: Model began to overfit around epoch ~20, slightly under 10 seconds per
 ### CNN_v2 - Added Dropout 
 
 2 Convolution Layers
-    - 3,16,3,1
-    - 16,64,3,1
+- 3,16,3,1
+- 16,64,3,1
+
 2 ReLu Activations
+
 2 MaxPool Layers
-    - 2,2
+- 2,2
+
 3 Dropout Layers
-    - 25% after Conv Blocks
-    - 50% after Flatten
+- 25% after Conv Blocks
+- 50% after Flatten
+
 1 FC Layer
-    - 4096,10
+- 4096,10
 
 {Conv->ReLu->MaxPool->Dropout}(2x)->Flatten->Dropout->FC
 
@@ -100,23 +106,70 @@ Thoughts: Model began to overfit around epoch ~20, slightly under 10 seconds per
 
 ###### Laptop: CNN v2 - Test 1
 
-Epochs: 50
-Batch_Size: 512
-Learning_Rate: 1e-3
-Classes = 10
+Epochs: 50 |
+Batch_Size: 512 |
+Learning_Rate: 1e-3 |
+Classes = 10 |
 Training/Validation Data Split: 90/10
 
 Final Epoch:
 
-Epoch 50/50, Train Loss: 0.6240, Train Accuracy: 78.55%, Val Loss: 0.9156, Val Accuracy: 69.54%
-Test Loss: 0.9221, Test Accuracy: 69.24%
+Epoch 50/50: 400 seconds
+Train Loss: 0.9513, Train Accuracy: 66.82%, Val Loss: 0.9156, Val Accuracy: 69.10%
+Test Loss: 0.8940, Test Accuracy: 70.01%
 
 Best Accuracy:
 
-Epoch 43/50, Train Loss: 0.6641, Train Accuracy: 77.39%, Val Loss: 0.8961, Val Accuracy: 69.54%
-Test Loss: 0.8968, Test Accuracy: 69.53%
+Epoch 49/50: 393 seconds
+Train Loss: 0.9502, Train Accuracy: 66.80%, Val Loss: 0.9096, Val Accuracy: 69.54%
+Test Loss: 0.8879, Test Accuracy: 70.35%
 
-Thoughts: Model began to overfit around epoch ~25, worsening as time went on
+Thoughts: No/very little overfitting after adding 3 dropout layers, going to increase epoch count to 100 and see if it continues to improve.
+
+###### Laptop: CNN v2 - Test 2
+
+Epochs: 50 |
+Batch_Size: 512 |
+Learning_Rate: 1e-3 |
+Classes = 10 |
+Training/Validation Data Split: 90/10
+
+Final Epoch:
+
+Epoch 100/100: 809 seconds
+Train Loss: 0.8972, Train Accuracy: 68.76%, Val Loss: 0.7830, Val Accuracy: 74.14%
+Test Loss: 0.8293, Test Accuracy: 72.36%
+
+Best Accuracy:
+
+Epoch 100/100: 809 seconds
+Train Loss: 0.8972, Train Accuracy: 68.76%, Val Loss: 0.7830, Val Accuracy: 74.14%
+Test Loss: 0.8293, Test Accuracy: 72.36%
+
+Thoughts: Continued to improve past 50 epochs, best result was at 100 epochs so will still be adding more epochs but first need to optimize data loader to speed up training(hopefully)
+
+###### Laptop: CNN v2 - Test 3
+
+Epochs: 50 |
+Batch_Size: 512 |
+Learning_Rate: 1e-3 |
+Classes = 10 |
+Num_Workers = 14 |
+Training/Validation Data Split: 90/10
+
+Final Epoch:
+
+poch 100/100: 198 seconds
+Train Loss: 0.8841, Train Accuracy: 69.28%, Val Loss: 0.8391, Val Accuracy: 71.92%
+Test Loss: 0.8495, Test Accuracy: 71.71%
+
+Best Accuracy:
+
+Epoch 93/100: 184 seconds
+Train Loss: 0.8956, Train Accuracy: 68.67%, Val Loss: 0.8187, Val Accuracy: 72.30%
+Test Loss: 0.8325, Test Accuracy: 72.00%
+
+Thoughts: Ran  num_workers benchmark on laptop and got 14 as the fastest so used that. Dropped epoch time significantly. Next test will be on desktop but with num_workers optimized for that system.
 
 ## Training the Model
 
