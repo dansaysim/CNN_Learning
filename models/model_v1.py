@@ -31,6 +31,21 @@ class CNN_v1(nn.Module):
 
         #FC Layer
         self.fc1 = nn.Linear(in_features=4096, out_features=10)
+        
+        # Initialize weights
+        self._initialize_weights()
+
+    def _initialize_weights(self):
+        # Initialize convolutional layers with Kaiming/He initialization
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+            # Initialize fully connected layers with Xavier/Glorot initialization
+            elif isinstance(m, nn.Linear):
+                nn.init.xavier_normal_(m.weight)
+                nn.init.constant_(m.bias, 0)
 
     def forward(self, x):
 
