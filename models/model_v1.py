@@ -24,6 +24,11 @@ class CNN_v1(nn.Module):
         self.maxpool1 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.maxpool2 = nn.MaxPool2d(kernel_size=2, stride=2)
 
+        #Dropout Layers
+        self.dropout1 = nn.Dropout(p=0.25)
+        self.dropout2 = nn.Dropout(p=0.25)
+        self.dropout_fc = nn.Dropout(p=0.5)
+
         #FC Layer
         self.fc1 = nn.Linear(in_features=4096, out_features=10)
 
@@ -33,14 +38,17 @@ class CNN_v1(nn.Module):
         x = self.conv1(x)
         x = F.relu(x)
         x = self.maxpool1(x)
-
+        x = self.dropout1(x)
+        
         #Second conv->relu->maxpool
         x = self.conv2(x)
         x = F.relu(x)
         x = self.maxpool2(x)
+        x = self.dropout2(x)
 
         #Flatten
         x = torch.flatten(x, 1)
+        x = self.dropout_fc(x)
 
         #FC Layer
         x = self.fc1(x)

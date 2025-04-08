@@ -13,7 +13,7 @@
 1 FC Layer
     - 4096,10
 
-Conv->ReLu->MaxPool (2x) -> FC
+{Conv->ReLu->MaxPool}(2x)->Flatten->FC
 
 #### Results:
 Only adding epoch time in Test 3
@@ -80,6 +80,43 @@ Test Loss: 0.9101, Test Accuracy: 69.44%
 
 Thoughts: Model began to overfit around epoch ~20, slightly under 10 seconds per epoch. This is enough random tests that I will now swap to CNN v2 and begin to add dropout layers gradually.
 
+### CNN_v2 - Added Dropout 
+
+2 Convolution Layers
+    - 3,16,3,1
+    - 16,64,3,1
+2 ReLu Activations
+2 MaxPool Layers
+    - 2,2
+3 Dropout Layers
+    - 25% after Conv Blocks
+    - 50% after Flatten
+1 FC Layer
+    - 4096,10
+
+{Conv->ReLu->MaxPool->Dropout}(2x)->Flatten->Dropout->FC
+
+#### Results:
+
+###### Laptop: CNN v2 - Test 1
+
+Epochs: 50
+Batch_Size: 512
+Learning_Rate: 1e-3
+Classes = 10
+Training/Validation Data Split: 90/10
+
+Final Epoch:
+
+Epoch 50/50, Train Loss: 0.6240, Train Accuracy: 78.55%, Val Loss: 0.9156, Val Accuracy: 69.54%
+Test Loss: 0.9221, Test Accuracy: 69.24%
+
+Best Accuracy:
+
+Epoch 43/50, Train Loss: 0.6641, Train Accuracy: 77.39%, Val Loss: 0.8961, Val Accuracy: 69.54%
+Test Loss: 0.8968, Test Accuracy: 69.53%
+
+Thoughts: Model began to overfit around epoch ~25, worsening as time went on
 
 ## Training the Model
 
