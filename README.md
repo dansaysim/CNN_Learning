@@ -18,8 +18,6 @@
 
 {Conv->ReLu->MaxPool}(2x)->Flatten->FC
 
-Afrt
-
 #### Results:
 
 ###### Laptop: CNN v1 - Test 1
