@@ -18,6 +18,8 @@
 
 {Conv->ReLu->MaxPool}(2x)->Flatten->FC
 
+Afrt
+
 #### Results:
 
 ###### Laptop: CNN v1 - Test 1
@@ -128,7 +130,7 @@ Thoughts: No/very little overfitting after adding 3 dropout layers, going to inc
 
 ###### Laptop: CNN v2 - Test 2
 
-Epochs: 50 |
+Epochs: 100 |
 Batch_Size: 512 |
 Learning_Rate: 1e-3 |
 Classes = 10 |
@@ -150,7 +152,7 @@ Thoughts: Continued to improve past 50 epochs, best result was at 100 epochs so 
 
 ###### Laptop: CNN v2 - Test 3
 
-Epochs: 50 |
+Epochs: 100 |
 Batch_Size: 512 |
 Learning_Rate: 1e-3 |
 Classes = 10 |
@@ -170,6 +172,52 @@ Train Loss: 0.8956, Train Accuracy: 68.67%, Val Loss: 0.8187, Val Accuracy: 72.3
 Test Loss: 0.8325, Test Accuracy: 72.00%
 
 Thoughts: Ran  num_workers benchmark on laptop and got 14 as the fastest so used that. Dropped epoch time significantly. Next test will be on desktop but with num_workers optimized for that system.
+
+###### Desktop: CNN v2 - Test 4
+
+Epochs: 100 |
+Batch_Size: 512 |
+Learning_Rate: 1e-3 |
+Classes = 10 |
+Num_Workers = 8 |
+Training/Validation Data Split: 90/10
+
+Final Epoch:
+
+Epoch 100/100: 63 seconds
+Train Loss: 0.8747, Train Accuracy: 69.57%, Val Loss: 0.8033, Val Accuracy: 72.48%
+Test Loss: 0.8259, Test Accuracy: 72.54%
+
+Best Accuracy:
+
+Epoch 100/100: 63 seconds
+Train Loss: 0.8747, Train Accuracy: 69.57%, Val Loss: 0.8033, Val Accuracy: 72.48%
+Test Loss: 0.8259, Test Accuracy: 72.54%
+
+Thoughts: Everything kept the same except dropping num_workers to 8 but still led to a >3x speedup in training. Now going to significantly up Epoch and see how far I can push it before it begins overfitting.
+
+###### Desktop: CNN v2 - Test 5
+
+Epochs: 250 |
+Batch_Size: 512 |
+Learning_Rate: 1e-3 |
+Classes = 10 |
+Num_Workers = 8 |
+Training/Validation Data Split: 90/10
+
+Final Epoch:
+
+Epoch 250/250: 164 seconds
+Train Loss: 0.8101, Train Accuracy: 71.80%, Val Loss: 0.7741, Val Accuracy: 73.96%
+Test Loss: 0.7961, Test Accuracy: 73.41%
+
+Best Accuracy:
+
+Epoch 235/250: 153 seconds
+Train Loss: 0.8094, Train Accuracy: 71.80%, Val Loss: 0.7450, Val Accuracy: 75.22%
+Test Loss: 0.7706, Test Accuracy: 74.86%
+
+Thoughts: Loss starts to plateau slightly past 200 so I'll keep it maxed at 250 epochs. Now going to implement more features and swap to v3.
 
 ## Training the Model
 
